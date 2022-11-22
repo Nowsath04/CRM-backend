@@ -112,4 +112,4 @@ app.get("/register/:id", async function (req, res) {
 });
 
 
-app.listen(3001|| process.env.PORT  );
+app.listen(process.env.PORT || 3001 );
