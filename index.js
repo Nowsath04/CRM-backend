@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
-const dotenv = require("dotenv").config;
+const dotenv = require("dotenv").config();
 const URL = process.env.DB;
 
 
@@ -12,7 +12,7 @@ const URL = process.env.DB;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*"
   })
 );
 
@@ -57,13 +57,16 @@ app.get("/service", async function (req, res) {
 });
 
 
-app.post("/register", async function (req, res) {
+app.post("/register", async function(req, res) {
   try {
-    // Open the Connection
+  // Open the Connection
     const connection = await mongoClient.connect(URL);
     // Select the DB
+
     const db = connection.db("blog");
     // Select the Collection
+    // console.log(db);
+    console.log(req.body);
     await db.collection("users").insertOne(req.body);
     // Close the connection
     await connection.close();
@@ -109,4 +112,4 @@ app.get("/register/:id", async function (req, res) {
 });
 
 
-app.listen(process.env.PORT || 3001);
+app.listen(3001|| process.env.PORT  );
